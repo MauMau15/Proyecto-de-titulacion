@@ -833,19 +833,6 @@ body.mobile-nav-active #mobile-nav-toggle i {
   }
 }
 
-@-webkit-keyframes pulsate2 {
-  0% {
-    -webkit-transform: scale(0.1, 0.1);
-    transform: scale(0.1, 0.1);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scale(1, 1);
-    transform: scale(1, 1);
-    opacity: 0;
-  }
-}
-
 /* Team Section
 --------------------------------*/
 #team .team-block {
@@ -1362,3 +1349,8 @@ body.mobile-nav-active #mobile-nav-toggle i {
   letter-spacing: 0;
   color: #71c55d;
 }
+
+#map {
+      height: 70%;
+      width: 70%;
+    }
