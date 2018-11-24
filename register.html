@@ -26,54 +26,53 @@
 
 <body>
   <div id="app">
-    <div class="container">
-      <div class="d-flex justify-content-center h-100">
-        <div class="card">
-          <div class="card-header">
-            <h3>Registrate</h3>
-            <!--<div class="d-flex justify-content-end social_icon">
-              <span><i class="fab fa-facebook-square"></i></span>
-              <span><i class="fab fa-google-plus-square"></i></span>
-              <span><i class="fab fa-twitter-square"></i></span>
-            </div>-->
-          </div>
-          <div class="card-body">
-            <form>
-              <div class="input-group form-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-user"></i></span>
-                </div>
-                <input v-model="username" type="text" class="form-control" placeholder="email">
-
-              </div>
-              <div class="input-group form-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-key"></i></span>
-                </div>
-                <input v-model="password" type="password" class="form-control" placeholder="contraseña">
-              </div>
-              <div class="input-group form-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-key"></i></span>
-                </div>
-                <input v-model="comparatePassword" type="password" class="form-control" placeholder="repetir contraseña">
-              </div>
-              <div class="form-group">
-                <input @click="registerNewUser" value="Acceso" class="btn float-right login_btn">
-              </div>
-            </form>
-          </div>
-          <div class="card-footer">
-            <div class="d-flex justify-content-center links">
-              No tienes una cuenta?<a href="#">Registrate</a>
+    <div v-if="authUser">
+      <h2 style="color: white">Usuario registrado: {{authUser.email}}</h2>
+      <button @click="signOut" class="btn btn-success">Cerrar sesión</button>
+    </div>
+    <div v-else>
+      <div class="container">
+        <div class="d-flex justify-content-center h-100">
+          <div class="card">
+            <div class="card-header">
+              <h3>Registrate</h3>
             </div>
-            <div class="d-flex justify-content-center">
-              <a href="#">Olvidaste tu contraseña?</a>
+            <div class="row">
+              <div class="card-body">
+                <div class="input-group form-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                  </div>
+                  <input v-model="username" type="text" class="form-control" placeholder="email">
+                </div>
+
+                <div class="input-group form-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                  </div>
+                  <input v-model="password" type="password" class="form-control" placeholder="contraseña">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-2">
+                <input @click="register" value="Crear" class="btn float-right login_btn">
+              </div>
+              <div class="col-md-2"></div>
+              <div class="col-md-2"></div>
+              <div class="col-md-1"></div>
+              <div class="col-md-2">
+                <input @click="signIn" value="Acceso" class="btn float-right login_btn">
+              </div>
+            </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    
   </div>
   <script>
     // Initialize Firebase
@@ -90,17 +89,31 @@
     var data = {
         username: "",
         password: "",
-        comparatePassword: ""
+        authUser: null
     }
 
     const app = new Vue({
         el: '#app',
         data: data,
         methods: {
-          registerNewUser: function () {
-            firebase.auth().createUserWithEmailAndPassword(`${this.username}`, `${this.password}`)
-            console.log("Registrado Correctamente 🤯")
+          register: function () {
+            firebase.auth().createUserWithEmailAndPassword(this.username, this.password)
+              .then(() => { window.location.href = 'index.html' } )
+              .catch(error => alert('🤯' + error.message));
+          },
+
+          signOut: function(){
+            firebase.auth().signOut()
+          },
+
+          signIn: function(){
+            firebase.auth().signInWithEmailAndPassword(this.username, this.password)
+              .then(() => { window.location.href = 'dashboard.html' })
+              .catch(error => alert('🤯' + error.message))
           }
+        },
+        created(){
+          firebase.auth().onAuthStateChanged(user => { this.authUser = user })
         }
       })
   </script>
