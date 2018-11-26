@@ -12,7 +12,10 @@ const app = new Vue({
   data: data,
   methods:{
     sendEmail: function(){
-      window.open(`mailto:luis.6496@hotmail.com?subject=${this.contact.subject}&body=${this.contact.message}`);
+      this.$http.post('https://bireport-4aedd.firebaseio.com/posts.json', this.contact)
+        .then(function(data){
+          console.log(data);
+      })
     }
   }
 })
