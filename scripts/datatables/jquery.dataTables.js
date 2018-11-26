@@ -707,10 +707,8 @@
 	function _fnGetRowData( oSettings, iRow, sSpecific, aiColumns )
 	{
 		var out = [];
-		for ( var i=0, iLen=aiColumns.length ; i<iLen ; i++ )
-		{
-			out.push( _fnGetCellData( oSettings, iRow, aiColumns[i], sSpecific ) );
-		}
+		for ( var i=0, iLen=aiColumns.length ; i<iLen ; i++ ){
+			out.push( _fnGetCellData( oSettings, iRow, aiColumns[i], sSpecific ) );}
 		return out;
 	}
 	
@@ -9305,7 +9303,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No data available in table",
+			"sEmptyTable": "",
 		
 		
 			/**
@@ -9349,7 +9347,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			"sInfoEmpty": "",
 		
 		
 			/**
@@ -9585,7 +9583,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sZeroRecords": "No matching records found"
+			"sZeroRecords": ""
 		},
 	
 	
