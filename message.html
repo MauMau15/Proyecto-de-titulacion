@@ -102,6 +102,7 @@
                       <th>Email</th>
                       <th>Asunto</th>
                       <th>Mensaje</th>
+                      <th>Responder</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -110,6 +111,7 @@
                       <td>{{email.email}}</td>
                       <td>{{email.subject}}</td>
                       <td>{{email.message}}</td>
+                      <td><button class="btn btn-success" @click="sendMessage(email)">Responder Mensaje</button></td>
                     </tr>
                   </tbody>
                 </table>

@@ -18,6 +18,10 @@ const app = new Vue({
           console.log(data);
           this.inbox = data.body;
         })
+    },
+
+    sendMessage: function(email){
+      
     }
   },
   beforeMount(){

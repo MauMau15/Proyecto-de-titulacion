@@ -108,7 +108,7 @@
 
           signIn: function(){
             firebase.auth().signInWithEmailAndPassword(this.username, this.password)
-              .then(() => { window.location.href = 'dashboard.html' })
+              .then(() => { window.location.href = `dashboard.html?user=${this.username}` })
               .catch(error => alert('🤯' + error.message))
           }
         },
