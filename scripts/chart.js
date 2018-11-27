@@ -21,7 +21,7 @@ $(function () {
         label: {
           connectorAllowed: false
         },
-        pointStart: 2019
+        pointStart: 2017
       }
     },
     series: [{
@@ -33,12 +33,6 @@ $(function () {
     }, {
       name: 'Costo de ventas',
       data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-    }, {
-        name: 'Ventas',
-        data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-    }, {
-        name: 'Gastós de administración',
-        data: [11744, 1722, 1605, 1971, 2015, 2437, 3247, 3387]
     }],
     responsive: {
       rules: [{

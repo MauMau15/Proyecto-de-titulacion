@@ -20,8 +20,9 @@ const app = new Vue({
         })
     },
 
-    sendMessage: function(email){
-      
+    sendMessage: function(data){
+      console.log(data);
+      window.open(`mailto:${data.email}?subject=${data.subject}&body=${data.message}`);
     }
   },
   beforeMount(){
