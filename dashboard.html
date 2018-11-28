@@ -12,6 +12,8 @@
     <link type="text/css" href="css/theme.css" rel="stylesheet">
     <link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
     <link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
+    <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>
 
 <body>
@@ -1240,19 +1242,20 @@
           },
           computed:{
             salesPercentage: function(){
+              let a1 = 0,a2 = 0, a3 = 0, a4 = 0, a5 = 0;
               this.$http.get('https://bireport-4aedd.firebaseio.com/sales.json')
                 .then(function(data){
+                  console.log(data);
                     for(var key in data.body){
                       if(data.body.hasOwnProperty(key)){
-                        data.body[key].year === 2013 ? this.a1 += data.body[key].amount : this.a1 += 0;
-                        data.body[key].year === 2014 ? this.a2 += data.body[key].amount : this.a2 += 0;
-                        data.body[key].year === 2015 ? this.a3 += data.body[key].amount : this.a3 += 0;
-                        data.body[key].year === 2016 ? this.a4 += data.body[key].amount : this.a4 += 0;
-                        data.body[key].year === 2017 ? this.a5 += data.body[key].amount : this.a5 += 0;
+                        data.body[key].year === 2013 ? a1 += data.body[key].amount : a1 += 0;
+                        data.body[key].year === 2014 ? a2 += data.body[key].amount : a2 += 0;
+                        data.body[key].year === 2015 ? a3 += data.body[key].amount : a3 += 0;
+                        data.body[key].year === 2016 ? a4 += data.body[key].amount : a4 += 0;
+                        data.body[key].year === 2017 ? a5 += data.body[key].amount : a5 += 0;
                       }
                     }
-                    console.log((((this.a2 - this.a1) / this.a1) + ((this.a3 - this.a2) / this.a2) + ((this.a4 - this.a3) / this.a3) + ((this.a5 - this.a4) / this.a4)) * 100);
-                    return (((this.a2 - this.a1) / this.a1) + ((this.a3 - this.a2) / this.a2) + ((this.a4 - this.a3) / this.a3) + ((this.a5 - this.a4) / this.a4)) * 100;
+                    console.log((((a2 - a1) / a1) + ((a3 - a2) / a2) + ((a4 - a3) / a3) + ((a5 - a4) / a4)) * 100);
                 })
             }
           }
