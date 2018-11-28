@@ -89,18 +89,19 @@
         <div class="span9">
           <div class="content">
             <div class="btn-controls">
-              <div class="btn-box-row row-fluid">
-                <a href="#" class="btn-box big span4"><i class=" icon-random"></i><b>65%</b>
-                  <p class="text-muted">
-                    Crecimiento</p>
-                </a><a href="#" class="btn-box big span4"><i class="icon-user"></i><b>15</b>
-                  <p class="text-muted">
-                    Personal</p>
-                </a><a href="#" class="btn-box big span4"><i class="icon-money"></i><b>15,152</b>
-                  <p class="text-muted">
-                    Presupuesto</p>
-                </a>
-              </div>
+              <div id="increase">
+                <div class="btn-box-row row-fluid">
+                  <a href="#" class="btn-box big span4"><i class=" icon-random"></i><b>{{ salesPercentage }}%</b>
+                    <p class="text-muted">
+                      Crecimiento</p>
+                  </a><a href="#" class="btn-box big span4"><i class="icon-user"></i><b>15</b>
+                    <p class="text-muted">
+                      Personal</p>
+                  </a><a href="#" class="btn-box big span4"><i class="icon-money"></i><b>15,152</b>
+                    <p class="text-muted">
+                      Presupuesto</p>
+                  </a>
+                </div>
               <div class="btn-box-row row-fluid">
                 <div class="span8">
                   <div class="row-fluid">
@@ -1216,5 +1217,45 @@
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
   <script src="scripts/chart.js"></script>
   <script src="js/dashboard.js"></script>
-
+  <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDeR-reyxCfvZEQ9mtRJgBRU7zrja41_2g",
+        authDomain: "bireport-4aedd.firebaseapp.com",
+        databaseURL: "https://bireport-4aedd.firebaseio.com",
+        projectId: "bireport-4aedd",
+        storageBucket: "bireport-4aedd.appspot.com",
+        messagingSenderId: "922361070341"
+      };
+      firebase.initializeApp(config);
+  
+      const increase = new Vue({
+          el: '#increase',
+          data:{
+            a1: 0,
+            a2: 0,
+            a3: 0,
+            a4: 0,
+            a5: 0
+          },
+          computed:{
+            salesPercentage: function(){
+              this.$http.get('https://bireport-4aedd.firebaseio.com/sales.json')
+                .then(function(data){
+                    for(var key in data.body){
+                      if(data.body.hasOwnProperty(key)){
+                        data.body[key].year === 2013 ? this.a1 += data.body[key].amount : this.a1 += 0;
+                        data.body[key].year === 2014 ? this.a2 += data.body[key].amount : this.a2 += 0;
+                        data.body[key].year === 2015 ? this.a3 += data.body[key].amount : this.a3 += 0;
+                        data.body[key].year === 2016 ? this.a4 += data.body[key].amount : this.a4 += 0;
+                        data.body[key].year === 2017 ? this.a5 += data.body[key].amount : this.a5 += 0;
+                      }
+                    }
+                    console.log((((this.a2 - this.a1) / this.a1) + ((this.a3 - this.a2) / this.a2) + ((this.a4 - this.a3) / this.a3) + ((this.a5 - this.a4) / this.a4)) * 100);
+                    return (((this.a2 - this.a1) / this.a1) + ((this.a3 - this.a2) / this.a2) + ((this.a4 - this.a3) / this.a3) + ((this.a5 - this.a4) / this.a4)) * 100;
+                })
+            }
+          }
+        })
+      </script>
 </body>
